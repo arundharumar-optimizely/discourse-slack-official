@@ -96,12 +96,6 @@ after_initialize do
       render json: success_json
     end
 
-    def search
-      params.permit(:query)
-      DiscourseSlack::Slack.search(params[:query])
-      render json: success_json
-    end
-
     def command
       guardian = DiscourseSlack::Slack.guardian
 
@@ -165,7 +159,11 @@ after_initialize do
           DiscourseSlack::Slack.help
         end
 
-      render json: { text: text }
+      if cmd == "search"
+        render json: text
+      else
+        render json: { text: text }
+      end
     end
 
     def slack_token_valid?

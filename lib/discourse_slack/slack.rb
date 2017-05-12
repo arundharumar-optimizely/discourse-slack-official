@@ -163,7 +163,12 @@ module DiscourseSlack
         author_name = "@#{user.username}"
       end
 
-      reading_time = 1+(topic.word_count/300).round
+      word_count = topic.word_count
+      if word_count.nil?
+        word_count = 0
+      end
+      reading_time = 1+(word_count/300).round
+
       reply_emoji = "mailbox_with_mail"
       if (topic.posts_count == 1)
         reply_emoji = "mailbox_closed"
