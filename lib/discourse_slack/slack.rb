@@ -127,7 +127,7 @@ module DiscourseSlack
     def self.set_filter_by_id(id, channel, filter, tags = nil, channel_id = nil)
       data = get_store(id)
       tags = Tag.where(name: tags).pluck(:name)
-      tags = nil if tags.blank?
+      tags = [] if tags.blank?
 
       index = data.index do |filter|
         filter["channel"] == channel || filter["channel"] == channel_id
@@ -136,6 +136,9 @@ module DiscourseSlack
       if index
         data[index]['filter'] = filter
         data[index]['channel'] = channel
+        if data[index]['tags'].nil?
+          data[index]['tags'] = []
+        end
         data[index]['tags'] = data[index]['tags'].concat(tags).uniq
       else
         data.push(channel: channel, filter: filter, tags: tags)
