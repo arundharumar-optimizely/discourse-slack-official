@@ -205,7 +205,7 @@ module DiscourseSlack
         attachments = attachments[0..5]
         attachments[6] = more_message
       end
-      return { username: username, icon_emoji: icon_emoji, text: initial_text, mrkdwn: true, attachments: attachments }
+      return { text: initial_text, mrkdwn: true, attachments: attachments }
     end
 
     def self.delete_filter(id, channel, tags)
