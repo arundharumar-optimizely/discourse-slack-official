@@ -5,6 +5,7 @@ require 'time'
 require 'cgi'
 
 module DiscourseSlack
+  DOMAIN = Discourse.base_url
   class Slack
     KEY_PREFIX = 'category_'.freeze
 
